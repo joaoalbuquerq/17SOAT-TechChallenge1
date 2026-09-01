@@ -9,11 +9,7 @@ import com.kap.mechanics_api.dto.movimentacaoestoque.RegistroSaidaMovimentacaoEs
 import com.kap.mechanics_api.enums.TipoItemEstoque;
 import com.kap.mechanics_api.enums.TipoMovimentacaoEstoque;
 import com.kap.mechanics_api.enums.TipoUsuario;
-import com.kap.mechanics_api.exception.EstoqueInsuficienteException;
-import com.kap.mechanics_api.exception.ItemEstoqueNaoEncontradoException;
-import com.kap.mechanics_api.exception.PeriodoMovimentacaoInvalidoException;
-import com.kap.mechanics_api.exception.OrdemServicoNaoEncontradaException;
-import com.kap.mechanics_api.exception.UsuarioNaoEncontradoException;
+import com.kap.mechanics_api.exception.*;
 import com.kap.mechanics_api.repository.ItemEstoqueRepository;
 import com.kap.mechanics_api.repository.MovimentacaoEstoqueRepository;
 import com.kap.mechanics_api.repository.OrdemServicoRepository;
@@ -31,10 +27,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -52,12 +48,6 @@ class MovimentacaoEstoqueServiceTest {
 
     @Mock
     private OrdemServicoRepository ordemServicoRepository;
-
-    @Mock
-    private OrcamentoServicoRepository orcamentoServicoRepository;
-
-    @Mock
-    private ServicoItemRepository servicoItemRepository;
 
     @InjectMocks
     private MovimentacaoEstoqueService service;
@@ -203,6 +193,54 @@ class MovimentacaoEstoqueServiceTest {
         LocalDateTime fim = LocalDateTime.of(2026, 8, 1, 0, 0);
 
         assertThrows(PeriodoMovimentacaoInvalidoException.class, () -> service.listarPorPeriodo(inicio, fim));
+    }
+
+    @Test
+    void devePesquisarPorId(){
+
+        //Preparar o cenario
+        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
+        movimentacaoEstoque.setId(1);
+
+        when(movimentacaoEstoqueRepository.findById(1)).thenReturn(Optional.of(movimentacaoEstoque));
+
+        MovimentacaoEstoque movimentacao = service.pesquisarPorId(1);
+
+        assertSame(movimentacao, movimentacaoEstoque);
+
+        verify(movimentacaoEstoqueRepository).findById(1);
+
+    }
+
+    @Test
+    void deveLancarErroQuandoMovimentacaoNaoExiste() {
+        when(movimentacaoEstoqueRepository.findById(1))
+                .thenReturn(Optional.empty());
+
+        assertThrows(MovimentacaoEstoqueNaoEncontradaException.class,
+                () -> service.pesquisarPorId(1));
+
+        verify(movimentacaoEstoqueRepository).findById(1);
+    }
+
+    @Test
+    void deveValidarSeItemEstaAtivo() {
+        ItemEstoque item = item(1, 10);
+        item.setAtivo(false);
+        Usuario usuario = usuario(1);
+        RegistroEntradaMovimentacaoEstoqueRequestDTO request =
+                new RegistroEntradaMovimentacaoEstoqueRequestDTO(1, 5);
+
+        when(itemEstoqueRepository.findByIdForUpdate(item.getId()))
+                .thenReturn(Optional.of(item));
+        when(usuarioRepository.findByLogin("usuario1"))
+                .thenReturn(Optional.of(usuario));
+
+        assertThrows(ItemEstoqueInativoException.class, () ->
+                service.registrarEntrada(request, "usuario1"));
+
+        verify(itemEstoqueRepository, never()).save(any(ItemEstoque.class));
+        verify(movimentacaoEstoqueRepository, never()).save(any(MovimentacaoEstoque.class));
     }
 
     private ItemEstoque item(Integer id, int quantidadeAtual) {

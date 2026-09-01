@@ -3,6 +3,7 @@ package com.kap.mechanics_api.service;
 import com.kap.mechanics_api.domain.*;
 import com.kap.mechanics_api.dto.orcamento.InclusaoOrcamentoItemRequestDTO;
 import com.kap.mechanics_api.enums.StatusOrcamento;
+import com.kap.mechanics_api.exception.OrcamentoNaoEncontradoException;
 import com.kap.mechanics_api.repository.OrcamentoItemRepository;
 import com.kap.mechanics_api.repository.OrcamentoRepository;
 import com.kap.mechanics_api.repository.ServicoItemRepository;
@@ -32,7 +33,7 @@ public class OrcamentoItemService {
     @Transactional
     public void incluir(Integer orcamentoId, InclusaoOrcamentoItemRequestDTO dto) {
         Orcamento orcamento = orcamentoRepository.findById(orcamentoId)
-                .orElseThrow(() -> new com.kap.mechanics_api.exception.OrcamentoNaoEncontradoException("Orçamento não encontrado"));
+                .orElseThrow(() -> new OrcamentoNaoEncontradoException("Orçamento não encontrado"));
         if (orcamento.getStatusOrcamento() != StatusOrcamento.PENDENTE) throw new IllegalArgumentException("Só é possível incluir itens em orçamento pendente.");
         validarUmaReferencia(dto.servicoId(), dto.itemEstoqueId());
         if (dto.servicoId() != null) incluirServico(orcamento, servicoService.pesquisarPorId(dto.servicoId()), dto.quantidade());
@@ -43,7 +44,7 @@ public class OrcamentoItemService {
     @Transactional
     public ConsultaOrcamentoItensResponseDTO consultar(Integer orcamentoId) {
         Orcamento orcamento = orcamentoRepository.findById(orcamentoId)
-                .orElseThrow(() -> new com.kap.mechanics_api.exception.OrcamentoNaoEncontradoException("Orçamento não encontrado"));
+                .orElseThrow(() -> new OrcamentoNaoEncontradoException("Orçamento não encontrado"));
         List<ItemOrcamentoResponseDTO> itens = itemRepository.findByOrcamento_Id(orcamentoId).stream()
                 .map(item -> new ItemOrcamentoResponseDTO(item.getId(), item.getServico() == null ? "ESTOQUE" : "SERVICO",
                         item.getServico() == null ? item.getItemEstoque().getId() : item.getServico().getId(),
