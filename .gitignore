@@ -1,5 +1,7 @@
 HELP.md
 target/
+.env
+zap-api-report*.html
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -31,3 +33,17 @@ build/
 
 ### VS Code ###
 .vscode/
+/.m2
+/.mvn
+
+# Terraform
+**/.terraform/*
+# backend.tf define o padrao seguro e deve ser versionado.
+# backend.hcl contem a configuracao especifica de cada conta AWS.
+terraform/**/backend.hcl
+!terraform/**/backend.hcl.example
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+!*.tfvars.example

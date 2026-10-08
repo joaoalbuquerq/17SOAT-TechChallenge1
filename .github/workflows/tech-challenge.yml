@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - name: atualizar codigo
+      - name: Atualizar codigo
         uses: actions/checkout@v4
 
       - name: Configurar Java e Maven
@@ -31,7 +31,7 @@ jobs:
           chmod +x mvnw
           ./mvnw --batch-mode verify
 
-      - name: Guardar relatório JaCoCo
+      - name: Guardar relatorio JaCoCo
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -41,3 +41,62 @@ jobs:
 
       - name: Construir imagem Docker
         run: docker build --tag mechanics-api:${{ github.sha }} .
+
+  publish:
+    name: Provisionar ECR e publicar imagem
+    needs: test-and-build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Atualizar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar credenciais temporarias da AWS
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-session-name: github-actions-mechanics-api
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Configurar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Inicializar Terraform
+        working-directory: terraform/environments/dev
+        run: terraform init -reconfigure -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+
+      - name: Validar Terraform
+        working-directory: terraform/environments/dev
+        run: terraform validate
+
+      - name: Planejar infraestrutura
+        working-directory: terraform/environments/dev
+        run: terraform plan -out=tfplan
+
+      - name: Aplicar infraestrutura
+        working-directory: terraform/environments/dev
+        run: terraform apply -auto-approve tfplan
+
+      - name: Obter URL do ECR
+        id: ecr
+        working-directory: terraform/environments/dev
+        run: echo "repository_url=$(terraform output -raw ecr_repository_url)" >> "$GITHUB_OUTPUT"
+
+      - name: Autenticar Docker no Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Construir e publicar imagem
+        env:
+          IMAGE_URI: ${{ steps.ecr.outputs.repository_url }}:${{ github.sha }}
+        run: |
+          docker build --tag "$IMAGE_URI" .
+          docker push "$IMAGE_URI"
+          echo "Imagem publicada: $IMAGE_URI"

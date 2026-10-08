@@ -1,0 +1,2 @@
+# Copie este arquivo para backend.hcl e informe o bucket da sua conta AWS.
+bucket = "mechanics-api-tfstate-SEU-ID-DA-CONTA"
