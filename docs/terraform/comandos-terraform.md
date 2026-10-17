@@ -3,7 +3,7 @@
 Este guia reúne os comandos usados para administrar o bootstrap e o ambiente `dev` da infraestrutura.
 
 ```text
-terraform/
+infra/terraform/
 ├── bootstrap/          # bucket S3 que guarda os states
 └── environments/
     └── dev/            # ECR e futuros recursos de desenvolvimento
@@ -35,7 +35,7 @@ terraform validate
 Para validar o bootstrap sem configurar o backend S3:
 
 ```powershell
-cd .\terraform\bootstrap
+cd .\infra\terraform\bootstrap
 terraform init -backend=false
 terraform validate
 ```
@@ -93,14 +93,14 @@ bootstrap/terraform.tfstate
 ### Bootstrap
 
 ```powershell
-cd .\terraform\bootstrap
+cd .\infra\terraform\bootstrap
 terraform plan
 ```
 
 ### Ambiente dev
 
 ```powershell
-cd .\terraform\environments\dev
+cd .\infra\terraform\environments\dev
 terraform plan
 ```
 
@@ -160,7 +160,7 @@ Para remover os recursos de um ambiente:
 terraform destroy
 ```
 
-Use `destroy` somente dentro de `terraform/environments/dev` quando a intenção for apagar os recursos de desenvolvimento. O bootstrap possui `prevent_destroy`; o bucket de state deve permanecer depois que os ambientes forem removidos.
+Use `destroy` somente dentro de `infra/terraform/environments/dev` quando a intenção for apagar os recursos de desenvolvimento. O bootstrap possui `prevent_destroy`; o bucket de state deve permanecer depois que os ambientes forem removidos.
 
 ## Resolver lock de state
 

@@ -53,6 +53,9 @@ jobs:
       contents: read
       id-token: write
 
+    env:
+      TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
+
     steps:
       - name: Atualizar codigo
         uses: actions/checkout@v4
@@ -69,25 +72,32 @@ jobs:
         with:
           terraform_wrapper: false
 
+      - name: Verificar secrets obrigatorios
+        run: |
+          if [ -z "$TF_VAR_db_password" ]; then
+            echo "::error::Secret DB_PASSWORD nao configurado no repositorio."
+            exit 1
+          fi
+
       - name: Inicializar Terraform
-        working-directory: terraform/environments/dev
+        working-directory: infra/terraform/environments/dev
         run: terraform init -reconfigure -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
 
       - name: Validar Terraform
-        working-directory: terraform/environments/dev
+        working-directory: infra/terraform/environments/dev
         run: terraform validate
 
       - name: Planejar infraestrutura
-        working-directory: terraform/environments/dev
+        working-directory: infra/terraform/environments/dev
         run: terraform plan -out=tfplan
 
       - name: Aplicar infraestrutura
-        working-directory: terraform/environments/dev
+        working-directory: infra/terraform/environments/dev
         run: terraform apply -auto-approve tfplan
 
       - name: Obter URL do ECR
         id: ecr
-        working-directory: terraform/environments/dev
+        working-directory: infra/terraform/environments/dev
         run: echo "repository_url=$(terraform output -raw ecr_repository_url)" >> "$GITHUB_OUTPUT"
 
       - name: Autenticar Docker no Amazon ECR

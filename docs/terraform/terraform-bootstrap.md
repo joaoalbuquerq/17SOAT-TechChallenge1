@@ -26,7 +26,7 @@ Não use credenciais da conta root. Prefira AWS IAM Identity Center (SSO), uma r
 No terminal, a partir da raiz do projeto:
 
 ```powershell
-cd .\terraform\bootstrap
+cd .\infra\terraform\bootstrap
 terraform fmt
 terraform init -backend=false
 terraform validate

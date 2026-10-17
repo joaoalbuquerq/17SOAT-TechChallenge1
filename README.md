@@ -76,7 +76,7 @@ O bootstrap prepara o bucket S3 que armazenará os estados remotos do Terraform.
 No terminal, a partir da raiz do projeto, execute:
 
 ```powershell
-cd .\terraform\bootstrap
+cd .\infra\terraform\bootstrap
 terraform fmt
 terraform init -backend=false
 terraform validate

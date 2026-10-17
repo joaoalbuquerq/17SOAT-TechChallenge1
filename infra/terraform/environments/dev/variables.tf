@@ -21,4 +21,8 @@ variable "db_password" {
   type        = string
   sensitive   = true
 
+  validation {
+    condition     = length(var.db_password) >= 8 && can(regex("^[!#-.0-?A-~]+$", var.db_password))
+    error_message = "A senha deve ter ao menos 8 caracteres ASCII imprimiveis, sem '/', '@', '\"' ou espaco."
+  }
 }
