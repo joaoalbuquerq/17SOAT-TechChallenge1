@@ -37,3 +37,24 @@ resource "aws_security_group" "postgres" {
     Name = "mechanics-api-dev-postgres"
   }
 }
+
+data "aws_subnets" "eks" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+
+  filter {
+    name   = "availability-zone"
+    values = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", "us-east-1f"]
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "postgres_from_eks" {
+  security_group_id            = aws_security_group.postgres.id
+  referenced_security_group_id = aws_eks_cluster.mechanics_api.vpc_config[0].cluster_security_group_id
+  from_port                    = 5432
+  to_port                      = 5432
+  ip_protocol                  = "tcp"
+  description                  = "PostgreSQL a partir dos nodes do EKS."
+}

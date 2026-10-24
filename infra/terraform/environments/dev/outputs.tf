@@ -40,3 +40,23 @@ output "db_name" {
   description = "Nome do banco da aplicacao."
   value       = aws_db_instance.postgres.db_name
 }
+
+output "eks_cluster_name" {
+  description = "Nome do cluster EKS."
+  value       = aws_eks_cluster.mechanics_api.name
+}
+
+output "eks_cluster_endpoint" {
+  description = "Endpoint da API do Kubernetes."
+  value       = aws_eks_cluster.mechanics_api.endpoint
+}
+
+output "eks_cluster_security_group_id" {
+  description = "Security group do cluster e dos nodes."
+  value       = aws_eks_cluster.mechanics_api.vpc_config[0].cluster_security_group_id
+}
+
+output "kubeconfig_command" {
+  description = "Comando para configurar o kubectl."
+  value       = "aws eks update-kubeconfig --region ${var.aws_region} --name ${aws_eks_cluster.mechanics_api.name}"
+}
