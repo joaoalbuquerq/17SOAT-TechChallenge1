@@ -1,8 +1,8 @@
-package com.kap.mechanics_api.controller;
+package com.kap.mechanics_api.adapter.web;
 
-import com.kap.mechanics_api.documentation.UsuarioControllerDoc;
-import com.kap.mechanics_api.dto.usuario.*;
-import com.kap.mechanics_api.exception.NenhumCampoInformadoException;
+import com.kap.mechanics_api.adapter.web.doc.UsuarioControllerDoc;
+import com.kap.mechanics_api.adapter.web.dto.usuario.*;
+import com.kap.mechanics_api.adapter.web.NenhumCampoInformadoException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

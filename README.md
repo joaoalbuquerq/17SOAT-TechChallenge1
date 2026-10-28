@@ -284,15 +284,21 @@ Os relatórios HTML do ZAP são evidências geradas localmente e não são versi
 
 ## Estrutura do projeto
 
+O projeto segue Clean Architecture. A dependência aponta sempre para dentro: `adapter` e `infra` conhecem o `core`, nunca o contrário.
+
 ```text
 src/main/java/com/kap/mechanics_api
-├── controller     # Endpoints REST
-├── service        # Regras de negócio
-├── domain         # Entidades do domínio
-├── repository     # Persistência
-├── dto            # Contratos de entrada e saída
-├── security       # Autenticação JWT
-└── config         # Segurança e OpenAPI
+├── core                 # Regras de negócio, sem Spring/JPA
+│   └── <contexto>       # cliente, veiculo, servico, itemestoque, movimentacaoestoque,
+│       ├── domain       #   orcamento, ordemservico, usuario
+│       ├── gateway      # Portas (interfaces) que o core precisa
+│       └── usecase      # Casos de uso e exceções de negócio
+├── adapter
+│   ├── web              # Controllers, mappers, DTOs (dto/) e contratos OpenAPI (doc/)
+│   └── persistence      # Gateways JPA, mappers, entities e repositories Spring Data
+└── infra                # Montagem: beans dos casos de uso, segurança JWT, OpenAPI, tratamento global de erros
 ```
+
+As regras de dependência são verificadas pelo `ArquiteturaTest` (ArchUnit). A decisão e o roteiro da migração estão em [docs/architecture/adr-0001-clean-architecture.md](docs/architecture/adr-0001-clean-architecture.md) e [docs/architecture/clean-architecture-estudo.md](docs/architecture/clean-architecture-estudo.md).
 
 As migrations do banco estão em `src/main/resources/db/migration`.

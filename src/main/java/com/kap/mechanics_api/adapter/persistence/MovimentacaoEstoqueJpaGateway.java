@@ -7,7 +7,7 @@ import com.kap.mechanics_api.core.movimentacaoestoque.gateway.MovimentacaoEstoqu
 import com.kap.mechanics_api.adapter.persistence.repository.ItemEstoqueRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.MovimentacaoEstoqueRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.OrdemServicoRepository;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

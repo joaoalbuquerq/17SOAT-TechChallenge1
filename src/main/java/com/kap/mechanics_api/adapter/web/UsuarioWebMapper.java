@@ -1,9 +1,9 @@
 package com.kap.mechanics_api.adapter.web;
 
 import com.kap.mechanics_api.core.usuario.domain.Usuario;
-import com.kap.mechanics_api.dto.usuario.AtualizacaoUsuarioResponseDTO;
-import com.kap.mechanics_api.dto.usuario.CriacaoUsuarioResponseDTO;
-import com.kap.mechanics_api.dto.usuario.ListagemUsuarioDTO;
+import com.kap.mechanics_api.adapter.web.dto.usuario.AtualizacaoUsuarioResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.usuario.CriacaoUsuarioResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.usuario.ListagemUsuarioDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

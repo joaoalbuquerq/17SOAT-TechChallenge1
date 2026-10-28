@@ -8,9 +8,8 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 // Regra de Dependência da Clean Architecture: o core não pode conhecer as camadas externas.
-// Ativa apenas para o core, que hoje contém Cliente, Veiculo, Servico, ItemEstoque, MovimentacaoEstoque,
-// Orcamento, OrdemServico e Usuario. Auth continua na camada de service.
-// Regras para adapter/infra serão ligadas conforme os demais contextos forem migrados.
+// Todos os contextos estão no core (Cliente, Veiculo, Servico, ItemEstoque, MovimentacaoEstoque, Orcamento,
+// OrdemServico e Usuario). O login é o caso de uso AutenticarUsuarioUseCase; a porta é implementada em infra/security.
 @AnalyzeClasses(packages = "com.kap.mechanics_api", importOptions = ImportOption.DoNotIncludeTests.class)
 class ArquiteturaTest {
 
@@ -32,4 +31,31 @@ class ArquiteturaTest {
                     "com.kap.mechanics_api.dto..", "com.kap.mechanics_api.domain..",
                     "com.kap.mechanics_api.exception..", "com.kap.mechanics_api.config..",
                     "com.kap.mechanics_api.security..");
+
+    @ArchTest
+    static final ArchRule webNaoDependeDaPersistencia = noClasses()
+            .that().resideInAPackage("com.kap.mechanics_api.adapter.web..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("com.kap.mechanics_api.adapter.persistence..", "org.springframework.data..");
+
+    @ArchTest
+    static final ArchRule persistenciaNaoDependeDaWeb = noClasses()
+            .that().resideInAPackage("com.kap.mechanics_api.adapter.persistence..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("com.kap.mechanics_api.adapter.web..", "org.springframework.web..");
+
+    @ArchTest
+    static final ArchRule adaptersNaoDependemDeInfra = noClasses()
+            .that().resideInAPackage("com.kap.mechanics_api.adapter..")
+            .should().dependOnClassesThat()
+            .resideInAPackage("com.kap.mechanics_api.infra..");
+
+    @ArchTest
+    static final ArchRule semPacotesLegados = noClasses()
+            .should().resideInAnyPackage(
+                    "com.kap.mechanics_api.controller..", "com.kap.mechanics_api.service..",
+                    "com.kap.mechanics_api.repository..", "com.kap.mechanics_api.mapper..",
+                    "com.kap.mechanics_api.dto..", "com.kap.mechanics_api.domain..",
+                    "com.kap.mechanics_api.exception..", "com.kap.mechanics_api.config..",
+                    "com.kap.mechanics_api.security..", "com.kap.mechanics_api.documentation..");
 }

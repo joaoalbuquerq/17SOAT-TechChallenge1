@@ -1,9 +1,7 @@
 package com.kap.mechanics_api.auth;
 
-import com.kap.mechanics_api.dto.auth.LoginRequestDTO;
-import com.kap.mechanics_api.dto.auth.LoginResponseDTO;
 import com.kap.mechanics_api.infra.security.JwtService;
-import com.kap.mechanics_api.service.AuthService;
+import com.kap.mechanics_api.infra.security.SpringSecurityAutenticacaoGateway;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -19,23 +17,22 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AuthServiceTest {
+class SpringSecurityAutenticacaoGatewayTest {
 
     @Mock private AuthenticationManager authenticationManager;
     @Mock private JwtService jwtService;
 
-    @InjectMocks private AuthService service;
+    @InjectMocks private SpringSecurityAutenticacaoGateway gateway;
 
     @Test
     void deveAutenticarEGerarToken() {
-        LoginRequestDTO request = new LoginRequestDTO("joao", "senha123");
         Authentication autenticado = new TestingAuthenticationToken("joao", "senha123");
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(autenticado);
         when(jwtService.gerarToken(autenticado)).thenReturn("jwt-token");
 
-        LoginResponseDTO response = service.login(request);
+        String token = gateway.autenticar("joao", "senha123");
 
-        assertEquals("jwt-token", response.token());
+        assertEquals("jwt-token", token);
 
         ArgumentCaptor<Authentication> captor = ArgumentCaptor.forClass(Authentication.class);
         org.mockito.Mockito.verify(authenticationManager).authenticate(captor.capture());

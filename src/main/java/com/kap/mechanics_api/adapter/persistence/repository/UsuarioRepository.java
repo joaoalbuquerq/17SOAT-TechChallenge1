@@ -1,4 +1,4 @@
-package com.kap.mechanics_api.repository;
+package com.kap.mechanics_api.adapter.persistence.repository;
 
 import com.kap.mechanics_api.adapter.persistence.entity.UsuarioJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

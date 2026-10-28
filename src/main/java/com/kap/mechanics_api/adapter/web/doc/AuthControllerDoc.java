@@ -1,7 +1,7 @@
-package com.kap.mechanics_api.documentation;
+package com.kap.mechanics_api.adapter.web.doc;
 
-import com.kap.mechanics_api.dto.auth.LoginRequestDTO;
-import com.kap.mechanics_api.dto.auth.LoginResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.auth.LoginRequestDTO;
+import com.kap.mechanics_api.adapter.web.dto.auth.LoginResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

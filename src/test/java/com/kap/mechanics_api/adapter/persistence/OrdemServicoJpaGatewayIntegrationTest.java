@@ -30,7 +30,7 @@ import com.kap.mechanics_api.adapter.persistence.repository.HistoricoStatusOsRep
 import com.kap.mechanics_api.adapter.persistence.repository.ItemEstoqueRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.ServicoRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.StatusOrdemServicoRepository;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.VeiculoRepository;
 
 import jakarta.persistence.EntityManager;

@@ -16,7 +16,7 @@ import com.kap.mechanics_api.core.ordemservico.domain.StatusOrdemServico;
 import com.kap.mechanics_api.core.itemestoque.domain.TipoItemEstoque;
 import com.kap.mechanics_api.core.usuario.domain.TipoUsuario;
 import com.kap.mechanics_api.adapter.persistence.repository.*;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

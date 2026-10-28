@@ -2,7 +2,7 @@ package com.kap.mechanics_api.usuario;
 
 import com.kap.mechanics_api.core.usuario.domain.TipoUsuario;
 import com.kap.mechanics_api.core.usuario.usecase.CadastrarUsuarioUseCase;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

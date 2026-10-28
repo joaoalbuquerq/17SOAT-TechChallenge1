@@ -1,4 +1,4 @@
-package com.kap.mechanics_api.dto.auth;
+package com.kap.mechanics_api.adapter.web.dto.auth;
 
 public record LoginResponseDTO(
        String token

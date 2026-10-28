@@ -1,5 +1,6 @@
 package com.kap.mechanics_api.infra;
 
+import com.kap.mechanics_api.core.usuario.gateway.AutenticacaoGateway;
 import com.kap.mechanics_api.core.usuario.gateway.CriptografiaSenhaGateway;
 import com.kap.mechanics_api.core.usuario.gateway.UsuarioGateway;
 import com.kap.mechanics_api.core.usuario.usecase.*;
@@ -37,5 +38,10 @@ public class UsuarioUseCaseConfig {
             UsuarioGateway gateway,
             CriptografiaSenhaGateway criptografia) {
         return new AtualizarUsuarioUseCase(gateway, criptografia);
+    }
+
+    @Bean
+    AutenticarUsuarioUseCase autenticarUsuarioUseCase(AutenticacaoGateway gateway) {
+        return new AutenticarUsuarioUseCase(gateway);
     }
 }

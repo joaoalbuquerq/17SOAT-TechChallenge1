@@ -1,7 +1,7 @@
 package com.kap.mechanics_api.usuario;
 
 import com.kap.mechanics_api.adapter.web.UsuarioWebMapperImpl;
-import com.kap.mechanics_api.controller.UsuarioController;
+import com.kap.mechanics_api.adapter.web.UsuarioController;
 import com.kap.mechanics_api.core.usuario.domain.TipoUsuario;
 import com.kap.mechanics_api.core.usuario.domain.Usuario;
 import com.kap.mechanics_api.core.usuario.usecase.*;

@@ -1,7 +1,7 @@
 package com.kap.mechanics_api.infra.security;
 
 import com.kap.mechanics_api.adapter.persistence.entity.UsuarioJpaEntity;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -5,13 +5,16 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
+import com.kap.mechanics_api.adapter.persistence.entity.UsuarioJpaEntity;
+import com.kap.mechanics_api.core.movimentacaoestoque.gateway.ResponsavelMovimentacaoGateway;
+import com.kap.mechanics_api.core.ordemservico.gateway.AtendenteGateway;
 import com.kap.mechanics_api.core.usuario.domain.Usuario;
 import com.kap.mechanics_api.core.usuario.gateway.UsuarioGateway;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 
-//Classe para implementar o meu gateway
-@Component 
-public class UsuarioJpaGateway implements UsuarioGateway {
+// Também atende às portas estreitas de estoque e ordem de serviço, que só precisam resolver login -> id.
+@Component
+public class UsuarioJpaGateway implements UsuarioGateway, AtendenteGateway, ResponsavelMovimentacaoGateway {
 
     private final UsuarioJpaMapper usuarioJpaMapper;
     private final UsuarioRepository usuarioRepository;
@@ -41,8 +44,9 @@ public class UsuarioJpaGateway implements UsuarioGateway {
     public void excluir(Integer id) {
         usuarioRepository.deleteById(id);
     }
-   
-    
-     
 
+    @Override
+    public Optional<Integer> buscarIdPorLogin(String login) {
+        return usuarioRepository.findByLogin(login).map(UsuarioJpaEntity::getId);
+    }
 }

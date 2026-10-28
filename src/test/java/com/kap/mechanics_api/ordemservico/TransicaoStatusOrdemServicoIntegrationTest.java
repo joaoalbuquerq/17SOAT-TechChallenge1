@@ -30,7 +30,7 @@ import com.kap.mechanics_api.adapter.persistence.repository.OrdemServicoReposito
 import com.kap.mechanics_api.adapter.persistence.repository.ServicoItemRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.ServicoRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.StatusOrdemServicoRepository;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.VeiculoRepository;
 import com.kap.mechanics_api.core.ordemservico.usecase.TransicionarStatusOrdemServicoUseCase;
 import org.junit.jupiter.api.BeforeEach;

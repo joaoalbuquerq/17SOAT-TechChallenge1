@@ -1,7 +1,7 @@
 package com.kap.mechanics_api.movimentacaoestoque;
 
 import com.kap.mechanics_api.adapter.persistence.repository.*;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import tools.jackson.databind.json.JsonMapper;
 import com.kap.mechanics_api.adapter.persistence.entity.ItemEstoqueJpaEntity;
 import com.kap.mechanics_api.adapter.persistence.entity.MovimentacaoEstoqueJpaEntity;

@@ -1,7 +1,7 @@
 package com.kap.mechanics_api;
 
 import com.kap.mechanics_api.adapter.web.dto.cliente.*;
-import com.kap.mechanics_api.dto.usuario.*;
+import com.kap.mechanics_api.adapter.web.dto.usuario.*;
 import com.kap.mechanics_api.adapter.web.dto.veiculo.*;
 import com.kap.mechanics_api.core.usuario.domain.TipoUsuario;
 

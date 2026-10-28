@@ -18,7 +18,7 @@ import com.kap.mechanics_api.adapter.persistence.repository.OrdemServicoItemRepo
 import com.kap.mechanics_api.adapter.persistence.repository.OrdemServicoRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.ServicoRepository;
 import com.kap.mechanics_api.adapter.persistence.repository.StatusOrdemServicoRepository;
-import com.kap.mechanics_api.repository.UsuarioRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.UsuarioRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

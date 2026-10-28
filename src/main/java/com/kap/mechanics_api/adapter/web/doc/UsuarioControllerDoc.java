@@ -1,6 +1,6 @@
-package com.kap.mechanics_api.documentation;
+package com.kap.mechanics_api.adapter.web.doc;
 
-import com.kap.mechanics_api.dto.usuario.*;
+import com.kap.mechanics_api.adapter.web.dto.usuario.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

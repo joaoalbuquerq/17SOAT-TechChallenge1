@@ -1,4 +1,4 @@
-package com.kap.mechanics_api.dto.usuario;
+package com.kap.mechanics_api.adapter.web.dto.usuario;
 
 import org.springframework.util.StringUtils;
 

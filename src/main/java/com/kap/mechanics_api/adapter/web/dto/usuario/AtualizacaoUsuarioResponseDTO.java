@@ -1,14 +1,12 @@
-package com.kap.mechanics_api.dto.usuario;
+package com.kap.mechanics_api.adapter.web.dto.usuario;
 
 import com.kap.mechanics_api.core.usuario.domain.TipoUsuario;
 
-import java.time.LocalDateTime;
-
-public record CriacaoUsuarioResponseDTO(
+public record AtualizacaoUsuarioResponseDTO(
         Integer id,
         String nome,
         String login,
-        LocalDateTime dataCriacao,
+        String senha,
         TipoUsuario tipo
 ) {
 }
