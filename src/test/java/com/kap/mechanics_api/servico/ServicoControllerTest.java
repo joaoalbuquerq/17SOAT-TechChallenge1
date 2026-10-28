@@ -21,7 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.kap.mechanics_api.adapter.web.ServicoWebMapperImpl;
-import com.kap.mechanics_api.controller.ServicoController;
+import com.kap.mechanics_api.adapter.web.ServicoController;
 import com.kap.mechanics_api.core.servico.domain.Servico;
 import com.kap.mechanics_api.core.servico.usecase.AtualizarServicoUseCase;
 import com.kap.mechanics_api.core.servico.usecase.BuscarServicoPorIdUseCase;

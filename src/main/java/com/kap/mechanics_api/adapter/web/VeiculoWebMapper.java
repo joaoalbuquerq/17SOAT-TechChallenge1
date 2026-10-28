@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.kap.mechanics_api.core.veiculo.domain.Veiculo;
-import com.kap.mechanics_api.dto.veiculo.AtualizacaoVeiculoResponseDTO;
-import com.kap.mechanics_api.dto.veiculo.CriacaoVeiculoResponseDTO;
-import com.kap.mechanics_api.dto.veiculo.ListagemVeiculoResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.veiculo.AtualizacaoVeiculoResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.veiculo.CriacaoVeiculoResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.veiculo.ListagemVeiculoResponseDTO;
 
 @Mapper(componentModel = "spring")
 public interface VeiculoWebMapper {

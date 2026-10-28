@@ -22,11 +22,11 @@ import com.kap.mechanics_api.core.itemestoque.domain.TipoItemEstoque;
 import com.kap.mechanics_api.core.orcamento.domain.ComponenteOrcado;
 import com.kap.mechanics_api.core.orcamento.domain.Orcamento;
 import com.kap.mechanics_api.core.orcamento.domain.StatusOrcamento;
-import com.kap.mechanics_api.repository.ClienteRepository;
-import com.kap.mechanics_api.repository.ItemEstoqueRepository;
-import com.kap.mechanics_api.repository.OrcamentoServicoRepository;
-import com.kap.mechanics_api.repository.ServicoRepository;
-import com.kap.mechanics_api.repository.VeiculoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ItemEstoqueRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.OrcamentoServicoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ServicoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.VeiculoRepository;
 
 import jakarta.persistence.EntityManager;
 

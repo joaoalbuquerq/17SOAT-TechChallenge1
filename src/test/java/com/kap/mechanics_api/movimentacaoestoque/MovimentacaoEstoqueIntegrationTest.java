@@ -1,6 +1,7 @@
 package com.kap.mechanics_api.movimentacaoestoque;
 
-import com.kap.mechanics_api.repository.*;
+import com.kap.mechanics_api.adapter.persistence.repository.*;
+import com.kap.mechanics_api.repository.UsuarioRepository;
 import tools.jackson.databind.json.JsonMapper;
 import com.kap.mechanics_api.adapter.persistence.entity.ItemEstoqueJpaEntity;
 import com.kap.mechanics_api.adapter.persistence.entity.MovimentacaoEstoqueJpaEntity;
@@ -10,8 +11,8 @@ import com.kap.mechanics_api.adapter.persistence.entity.StatusOrdemServicoJpaEnt
 import com.kap.mechanics_api.adapter.persistence.entity.UsuarioJpaEntity;
 import com.kap.mechanics_api.adapter.persistence.entity.ClienteJpaEntity;
 import com.kap.mechanics_api.adapter.persistence.entity.VeiculoJpaEntity;
-import com.kap.mechanics_api.dto.movimentacaoestoque.RegistroEntradaMovimentacaoEstoqueRequestDTO;
-import com.kap.mechanics_api.dto.movimentacaoestoque.RegistroSaidaMovimentacaoEstoqueRequestDTO;
+import com.kap.mechanics_api.adapter.web.dto.movimentacaoestoque.RegistroEntradaMovimentacaoEstoqueRequestDTO;
+import com.kap.mechanics_api.adapter.web.dto.movimentacaoestoque.RegistroSaidaMovimentacaoEstoqueRequestDTO;
 import com.kap.mechanics_api.core.itemestoque.domain.TipoItemEstoque;
 import com.kap.mechanics_api.core.movimentacaoestoque.domain.TipoMovimentacaoEstoque;
 import com.kap.mechanics_api.core.orcamento.domain.StatusOrcamento;

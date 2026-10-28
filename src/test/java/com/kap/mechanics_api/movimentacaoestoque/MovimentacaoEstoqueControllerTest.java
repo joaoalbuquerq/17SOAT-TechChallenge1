@@ -21,7 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.kap.mechanics_api.adapter.web.MovimentacaoEstoqueWebMapperImpl;
-import com.kap.mechanics_api.controller.MovimentacaoEstoqueController;
+import com.kap.mechanics_api.adapter.web.MovimentacaoEstoqueController;
 import com.kap.mechanics_api.core.itemestoque.domain.EstoqueInsuficienteException;
 import com.kap.mechanics_api.core.movimentacaoestoque.domain.MovimentacaoEstoque;
 import com.kap.mechanics_api.core.movimentacaoestoque.domain.MovimentacaoEstoqueConsulta;

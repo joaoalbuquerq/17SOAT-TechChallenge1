@@ -2,7 +2,7 @@ package com.kap.mechanics_api.adapter.persistence;
 
 import com.kap.mechanics_api.core.servico.domain.Servico;
 import com.kap.mechanics_api.core.servico.gateway.ServicoGateway;
-import com.kap.mechanics_api.repository.ServicoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ServicoRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

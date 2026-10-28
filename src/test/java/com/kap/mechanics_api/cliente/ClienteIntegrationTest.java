@@ -1,9 +1,10 @@
 package com.kap.mechanics_api.cliente;
 
 import com.kap.mechanics_api.adapter.persistence.entity.ClienteJpaEntity;
-import com.kap.mechanics_api.dto.cliente.AtualizacaoClienteRequestDTO;
-import com.kap.mechanics_api.dto.cliente.CriacaoClienteRequestDTO;
-import com.kap.mechanics_api.repository.*;
+import com.kap.mechanics_api.adapter.web.dto.cliente.AtualizacaoClienteRequestDTO;
+import com.kap.mechanics_api.adapter.web.dto.cliente.CriacaoClienteRequestDTO;
+import com.kap.mechanics_api.adapter.persistence.repository.*;
+import com.kap.mechanics_api.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

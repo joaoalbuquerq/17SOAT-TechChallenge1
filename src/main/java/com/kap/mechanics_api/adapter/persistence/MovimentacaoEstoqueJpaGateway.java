@@ -4,9 +4,9 @@ import com.kap.mechanics_api.adapter.persistence.entity.MovimentacaoEstoqueJpaEn
 import com.kap.mechanics_api.core.movimentacaoestoque.domain.MovimentacaoEstoque;
 import com.kap.mechanics_api.core.movimentacaoestoque.domain.TipoMovimentacaoEstoque;
 import com.kap.mechanics_api.core.movimentacaoestoque.gateway.MovimentacaoEstoqueGateway;
-import com.kap.mechanics_api.repository.ItemEstoqueRepository;
-import com.kap.mechanics_api.repository.MovimentacaoEstoqueRepository;
-import com.kap.mechanics_api.repository.OrdemServicoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ItemEstoqueRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.MovimentacaoEstoqueRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.OrdemServicoRepository;
 import com.kap.mechanics_api.repository.UsuarioRepository;
 import org.springframework.stereotype.Component;
 

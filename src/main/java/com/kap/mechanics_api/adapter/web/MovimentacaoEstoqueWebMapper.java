@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.kap.mechanics_api.core.movimentacaoestoque.domain.MovimentacaoEstoqueConsulta;
-import com.kap.mechanics_api.dto.movimentacaoestoque.MovimentacaoEstoqueResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.movimentacaoestoque.MovimentacaoEstoqueResponseDTO;
 
 @Mapper(componentModel = "spring")
 public interface MovimentacaoEstoqueWebMapper {

@@ -25,13 +25,13 @@ import com.kap.mechanics_api.core.ordemservico.domain.OrdemServicoResumo;
 import com.kap.mechanics_api.core.ordemservico.domain.StatusOrdemServico;
 import com.kap.mechanics_api.adapter.persistence.entity.UsuarioJpaEntity;
 import com.kap.mechanics_api.core.usuario.domain.TipoUsuario;
-import com.kap.mechanics_api.repository.ClienteRepository;
-import com.kap.mechanics_api.repository.HistoricoStatusOsRepository;
-import com.kap.mechanics_api.repository.ItemEstoqueRepository;
-import com.kap.mechanics_api.repository.ServicoRepository;
-import com.kap.mechanics_api.repository.StatusOrdemServicoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.HistoricoStatusOsRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ItemEstoqueRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ServicoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.StatusOrdemServicoRepository;
 import com.kap.mechanics_api.repository.UsuarioRepository;
-import com.kap.mechanics_api.repository.VeiculoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.VeiculoRepository;
 
 import jakarta.persistence.EntityManager;
 

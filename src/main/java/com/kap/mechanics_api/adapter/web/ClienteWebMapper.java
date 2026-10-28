@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.kap.mechanics_api.core.cliente.domain.Cliente;
-import com.kap.mechanics_api.dto.cliente.AtualizacaoClienteResponseDTO;
-import com.kap.mechanics_api.dto.cliente.CriacaoClienteResponseDTO;
-import com.kap.mechanics_api.dto.cliente.ListagemClienteResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.cliente.AtualizacaoClienteResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.cliente.CriacaoClienteResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.cliente.ListagemClienteResponseDTO;
 
 @Mapper(componentModel = "spring")
 public interface ClienteWebMapper {

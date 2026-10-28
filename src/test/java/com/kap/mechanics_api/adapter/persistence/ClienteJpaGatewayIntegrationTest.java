@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kap.mechanics_api.core.cliente.domain.Cliente;
 import com.kap.mechanics_api.core.cliente.domain.CpfCnpj;
-import com.kap.mechanics_api.repository.ClienteRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteRepository;
 
 import jakarta.persistence.EntityManager;
 

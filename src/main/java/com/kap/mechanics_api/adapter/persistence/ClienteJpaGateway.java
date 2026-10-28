@@ -4,7 +4,7 @@ import com.kap.mechanics_api.adapter.persistence.entity.ClienteJpaEntity;
 import com.kap.mechanics_api.core.cliente.domain.Cliente;
 import com.kap.mechanics_api.core.cliente.domain.CpfCnpj;
 import com.kap.mechanics_api.core.cliente.gateway.ClienteGateway;
-import com.kap.mechanics_api.repository.ClienteRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

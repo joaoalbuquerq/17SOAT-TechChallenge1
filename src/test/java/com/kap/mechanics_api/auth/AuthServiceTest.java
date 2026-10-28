@@ -2,7 +2,7 @@ package com.kap.mechanics_api.auth;
 
 import com.kap.mechanics_api.dto.auth.LoginRequestDTO;
 import com.kap.mechanics_api.dto.auth.LoginResponseDTO;
-import com.kap.mechanics_api.security.JwtService;
+import com.kap.mechanics_api.infra.security.JwtService;
 import com.kap.mechanics_api.service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

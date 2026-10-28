@@ -1,8 +1,8 @@
 package com.kap.mechanics_api.adapter.web;
 
 import com.kap.mechanics_api.core.orcamento.usecase.ConsultaDeItensDoOrcamento;
-import com.kap.mechanics_api.dto.orcamento.ConsultaOrcamentoItensResponseDTO;
-import com.kap.mechanics_api.dto.orcamento.ItemOrcamentoResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.orcamento.ConsultaOrcamentoItensResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.orcamento.ItemOrcamentoResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component

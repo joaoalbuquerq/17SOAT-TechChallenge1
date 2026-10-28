@@ -2,7 +2,7 @@ package com.kap.mechanics_api.adapter.persistence;
 
 import com.kap.mechanics_api.core.itemestoque.domain.ItemEstoque;
 import com.kap.mechanics_api.core.itemestoque.gateway.ItemEstoqueGateway;
-import com.kap.mechanics_api.repository.ItemEstoqueRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ItemEstoqueRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

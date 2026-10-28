@@ -4,9 +4,9 @@ import com.kap.mechanics_api.adapter.persistence.entity.ClienteVeiculoJpaEntity;
 import com.kap.mechanics_api.adapter.persistence.entity.ClienteVeiculoJpaId;
 import com.kap.mechanics_api.core.veiculo.domain.Veiculo;
 import com.kap.mechanics_api.core.veiculo.gateway.VeiculoGateway;
-import com.kap.mechanics_api.repository.ClienteRepository;
-import com.kap.mechanics_api.repository.ClienteVeiculoRepository;
-import com.kap.mechanics_api.repository.VeiculoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteVeiculoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.VeiculoRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

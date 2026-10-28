@@ -17,6 +17,7 @@ import com.kap.mechanics_api.core.ordemservico.domain.TransicaoStatusInvalidaExc
 import com.kap.mechanics_api.core.ordemservico.usecase.OrcamentoNaoAprovadoException;
 import com.kap.mechanics_api.core.ordemservico.usecase.OrdemServicoJaExisteException;
 import com.kap.mechanics_api.exception.*;
+import com.kap.mechanics_api.adapter.web.NenhumCampoInformadoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;

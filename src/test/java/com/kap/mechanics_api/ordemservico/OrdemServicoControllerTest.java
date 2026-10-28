@@ -26,8 +26,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.kap.mechanics_api.adapter.web.OrdemServicoWebMapper;
-import com.kap.mechanics_api.controller.HistoricoStatusController;
-import com.kap.mechanics_api.controller.OrdemServicoController;
+import com.kap.mechanics_api.adapter.web.HistoricoStatusController;
+import com.kap.mechanics_api.adapter.web.OrdemServicoController;
 import com.kap.mechanics_api.core.cliente.usecase.ClienteNaoEncontradoException;
 import com.kap.mechanics_api.core.ordemservico.domain.HistoricoDeStatus;
 import com.kap.mechanics_api.core.ordemservico.domain.OrdemServico;

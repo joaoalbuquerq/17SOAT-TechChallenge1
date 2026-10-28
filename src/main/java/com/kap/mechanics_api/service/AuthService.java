@@ -2,7 +2,7 @@ package com.kap.mechanics_api.service;
 
 import com.kap.mechanics_api.dto.auth.LoginRequestDTO;
 import com.kap.mechanics_api.dto.auth.LoginResponseDTO;
-import com.kap.mechanics_api.security.JwtService;
+import com.kap.mechanics_api.infra.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

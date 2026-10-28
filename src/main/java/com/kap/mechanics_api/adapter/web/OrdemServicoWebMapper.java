@@ -3,10 +3,10 @@ package com.kap.mechanics_api.adapter.web;
 import com.kap.mechanics_api.core.ordemservico.domain.HistoricoDeStatus;
 import com.kap.mechanics_api.core.ordemservico.domain.OrdemServicoResumo;
 import com.kap.mechanics_api.core.ordemservico.usecase.ConsultaDeItensDaOrdemServico;
-import com.kap.mechanics_api.dto.ordemservico.ConsultaOrdemServicoItensResponseDTO;
-import com.kap.mechanics_api.dto.ordemservico.HistoricoStatusOsResponseDTO;
-import com.kap.mechanics_api.dto.ordemservico.ItemOrdemServicoResponseDTO;
-import com.kap.mechanics_api.dto.ordemservico.ListagemOrdemServicoResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.ordemservico.ConsultaOrdemServicoItensResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.ordemservico.HistoricoStatusOsResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.ordemservico.ItemOrdemServicoResponseDTO;
+import com.kap.mechanics_api.adapter.web.dto.ordemservico.ListagemOrdemServicoResponseDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -21,7 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.kap.mechanics_api.adapter.web.ItemEstoqueWebMapperImpl;
-import com.kap.mechanics_api.controller.ItemEstoqueController;
+import com.kap.mechanics_api.adapter.web.ItemEstoqueController;
 import com.kap.mechanics_api.core.itemestoque.domain.ItemEstoque;
 import com.kap.mechanics_api.core.itemestoque.domain.TipoItemEstoque;
 import com.kap.mechanics_api.core.itemestoque.usecase.AtualizarItemEstoqueUseCase;

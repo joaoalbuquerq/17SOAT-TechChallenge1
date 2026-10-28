@@ -2,7 +2,7 @@ package com.kap.mechanics_api.cliente;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kap.mechanics_api.Utilities;
-import com.kap.mechanics_api.controller.ClienteController;
+import com.kap.mechanics_api.adapter.web.ClienteController;
 import com.kap.mechanics_api.core.cliente.domain.Cliente;
 import com.kap.mechanics_api.core.cliente.domain.CpfCnpj;
 import com.kap.mechanics_api.core.cliente.usecase.AtualizarClienteUseCase;

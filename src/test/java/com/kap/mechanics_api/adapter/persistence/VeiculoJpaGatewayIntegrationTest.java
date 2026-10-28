@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kap.mechanics_api.adapter.persistence.entity.ClienteJpaEntity;
 import com.kap.mechanics_api.adapter.persistence.entity.ClienteVeiculoJpaId;
 import com.kap.mechanics_api.core.veiculo.domain.Veiculo;
-import com.kap.mechanics_api.repository.ClienteRepository;
-import com.kap.mechanics_api.repository.ClienteVeiculoRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteRepository;
+import com.kap.mechanics_api.adapter.persistence.repository.ClienteVeiculoRepository;
 
 import jakarta.persistence.EntityManager;
 

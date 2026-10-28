@@ -26,7 +26,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.kap.mechanics_api.adapter.web.OrcamentoWebMapper;
-import com.kap.mechanics_api.controller.OrcamentoController;
+import com.kap.mechanics_api.adapter.web.OrcamentoController;
 import com.kap.mechanics_api.core.orcamento.domain.StatusOrcamento;
 import com.kap.mechanics_api.core.orcamento.domain.StatusOrcamentoInvalidoException;
 import com.kap.mechanics_api.core.orcamento.usecase.AtualizarStatusDoOrcamentoUseCase;
