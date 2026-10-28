@@ -28,6 +28,8 @@ import com.kap.mechanics_api.core.itemestoque.gateway.ItemEstoqueGateway;
 import com.kap.mechanics_api.core.orcamento.domain.Orcamento;
 import com.kap.mechanics_api.core.orcamento.domain.StatusOrcamento;
 import com.kap.mechanics_api.core.orcamento.gateway.OrcamentoGateway;
+import com.kap.mechanics_api.core.ordemservico.domain.OrdemServico;
+import com.kap.mechanics_api.core.orcamento.usecase.OrcamentoGerado;
 import com.kap.mechanics_api.core.ordemservico.usecase.CriarOrdemServicoParaOrcamentoPendenteUseCase;
 import com.kap.mechanics_api.core.servico.domain.Servico;
 import com.kap.mechanics_api.core.servico.gateway.ComponenteDeServico;
@@ -81,7 +83,11 @@ class GerarOrcamentoUseCaseTest {
                     o.getDataCriacao(), null, o.getItens(), o.getServicosOrcados());
         });
 
-        Orcamento resultado = useCase.executar(1, 2, List.of(10), "atendente");
+        OrdemServico ordemServico = mock(OrdemServico.class);
+        when(ordemServico.getId()).thenReturn(77);
+        when(criarOrdemServico.executar(55, "atendente")).thenReturn(ordemServico);
+
+        OrcamentoGerado resultado = useCase.executar(1, 2, List.of(10), "atendente");
 
         ArgumentCaptor<Orcamento> captor = ArgumentCaptor.forClass(Orcamento.class);
         verify(orcamentoGateway).salvar(captor.capture());
@@ -89,7 +95,8 @@ class GerarOrcamentoUseCaseTest {
         assertEquals(StatusOrcamento.PENDENTE, gravado.getStatus());
         assertEquals(0, new BigDecimal("160.00").compareTo(gravado.getValorTotal()));
         assertEquals(LocalDateTime.of(2026, 10, 16, 12, 0), gravado.getDataCriacao());
-        assertEquals(55, resultado.getId());
+        assertEquals(55, resultado.orcamento().getId());
+        assertEquals(77, resultado.ordemServico().getId());
         verify(criarOrdemServico).executar(55, "atendente");
     }
 

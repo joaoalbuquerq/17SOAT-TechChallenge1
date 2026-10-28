@@ -11,6 +11,9 @@ import com.kap.mechanics_api.adapter.web.dto.orcamento.ConsultaOrcamentoItensRes
 import com.kap.mechanics_api.adapter.web.dto.orcamento.GeracaoOrcamentoRequestDTO;
 import com.kap.mechanics_api.adapter.web.dto.orcamento.InclusaoOrcamentoItemRequestDTO;
 import jakarta.validation.Valid;
+import com.kap.mechanics_api.adapter.web.dto.orcamento.GeracaoOrcamentoResponseDTO;
+import com.kap.mechanics_api.core.orcamento.usecase.OrcamentoGerado;
+import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -63,11 +66,14 @@ public class OrcamentoController implements OrcamentoControllerDoc {
     @PostMapping("/gerarOrcamento")
     @Transactional
     @Override
-    public ResponseEntity<String> gerarOrcamento(
+    public ResponseEntity<GeracaoOrcamentoResponseDTO> gerarOrcamento(
             @Valid @RequestBody GeracaoOrcamentoRequestDTO dto,
             Authentication authentication) {
-        gerarOrcamentoUseCase.executar(dto.clienteId(), dto.veiculoId(), dto.servicosIds(), authentication.getName());
-        return ResponseEntity.ok("Orçamento gerado com sucesso.");
+        OrcamentoGerado gerado = gerarOrcamentoUseCase.executar(
+                dto.clienteId(), dto.veiculoId(), dto.servicosIds(), authentication.getName());
+        Integer ordemServicoId = gerado.ordemServico().getId();
+        return ResponseEntity.created(URI.create("/api/ordem-servico/" + ordemServicoId))
+                .body(new GeracaoOrcamentoResponseDTO(gerado.orcamento().getId(), ordemServicoId));
     }
 
     @PatchMapping("/{id}/status")

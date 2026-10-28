@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import com.kap.mechanics_api.adapter.web.dto.orcamento.GeracaoOrcamentoResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ public interface OrcamentoControllerDoc {
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "404", description = "Cliente, veículo, serviço ou usuário não encontrado")
     })
-    ResponseEntity<String> gerarOrcamento(
+    ResponseEntity<GeracaoOrcamentoResponseDTO> gerarOrcamento(
             @Valid @RequestBody GeracaoOrcamentoRequestDTO dto,
             Authentication authentication
     );

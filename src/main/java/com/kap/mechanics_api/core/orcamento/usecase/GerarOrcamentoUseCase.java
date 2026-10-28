@@ -7,6 +7,7 @@ import com.kap.mechanics_api.core.itemestoque.usecase.ItemEstoqueNaoEncontradoEx
 import com.kap.mechanics_api.core.orcamento.domain.ComponenteOrcado;
 import com.kap.mechanics_api.core.orcamento.domain.Orcamento;
 import com.kap.mechanics_api.core.orcamento.gateway.OrcamentoGateway;
+import com.kap.mechanics_api.core.ordemservico.domain.OrdemServico;
 import com.kap.mechanics_api.core.ordemservico.usecase.CriarOrdemServicoParaOrcamentoPendenteUseCase;
 import com.kap.mechanics_api.core.servico.domain.Servico;
 import com.kap.mechanics_api.core.servico.gateway.ComponentesDeServicoGateway;
@@ -49,7 +50,7 @@ public class GerarOrcamentoUseCase {
         this.clock = clock;
     }
 
-    public Orcamento executar(Integer clienteId, Integer veiculoId, List<Integer> servicosIds,
+    public OrcamentoGerado executar(Integer clienteId, Integer veiculoId, List<Integer> servicosIds,
                               String atendenteLogin) {
         clienteGateway.pesquisarPorId(clienteId).orElseThrow(() -> new ClienteNaoEncontradoException(clienteId));
         veiculoGateway.pesquisarPorId(veiculoId).orElseThrow(() -> new VeiculoNaoEncontradoException(veiculoId));
@@ -62,8 +63,8 @@ public class GerarOrcamentoUseCase {
         }
 
         Orcamento salvo = orcamentoGateway.salvar(orcamento);
-        criarOrdemServico.executar(salvo.getId(), atendenteLogin);
-        return salvo;
+        OrdemServico ordemServico = criarOrdemServico.executar(salvo.getId(), atendenteLogin);
+        return new OrcamentoGerado(salvo, ordemServico);
     }
 
     private List<ComponenteOrcado> componentesDe(Integer servicoId) {

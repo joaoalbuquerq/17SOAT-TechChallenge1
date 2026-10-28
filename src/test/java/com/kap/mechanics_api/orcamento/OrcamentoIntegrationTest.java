@@ -39,6 +39,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -204,7 +205,7 @@ class OrcamentoIntegrationTest {
                         .with(atendente())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         return orcamentoRepository.findAll().get(0);
     }
@@ -225,8 +226,10 @@ class OrcamentoIntegrationTest {
                         .with(atendente())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Orçamento gerado com sucesso."));
+                .andExpect(status().isCreated())
+                .andExpect(header().exists("Location"))
+                .andExpect(jsonPath("$.orcamentoId").isNumber())
+                .andExpect(jsonPath("$.ordemServicoId").isNumber());
 
         List<OrcamentoJpaEntity> orcamentos = orcamentoRepository.findAll();
         assertThat(orcamentos).hasSize(1);
@@ -260,7 +263,7 @@ class OrcamentoIntegrationTest {
                         .with(atendente())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         OrcamentoJpaEntity orcamento = orcamentoRepository.findAll().get(0);
         assertThat(orcamento.getValorTotal()).isEqualByComparingTo("200.00");

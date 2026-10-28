@@ -40,6 +40,7 @@ import com.kap.mechanics_api.core.ordemservico.usecase.ConsultarItensDaOrdemServ
 import com.kap.mechanics_api.core.ordemservico.usecase.GerarOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.IncluirItemNaOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.ListarOrdensServicoPorClienteUseCase;
+import com.kap.mechanics_api.core.ordemservico.usecase.ConsultarOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.ListarOrdensServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.OrdemServicoNaoEncontradaException;
 import com.kap.mechanics_api.core.ordemservico.usecase.TransicionarStatusOrdemServicoUseCase;
@@ -56,6 +57,7 @@ class OrdemServicoControllerTest {
     @MockitoBean private TransicionarStatusOrdemServicoUseCase transicionarStatusUseCase;
     @MockitoBean private IncluirItemNaOrdemServicoUseCase incluirItemUseCase;
     @MockitoBean private ConsultarItensDaOrdemServicoUseCase consultarItensUseCase;
+    @MockitoBean private ConsultarOrdemServicoUseCase consultarUseCase;
     @MockitoBean private ListarOrdensServicoUseCase listarUseCase;
     @MockitoBean private ListarOrdensServicoPorClienteUseCase listarPorClienteUseCase;
     @MockitoBean private ConsultarHistoricoDeStatusUseCase consultarHistoricoUseCase;
@@ -105,6 +107,29 @@ class OrdemServicoControllerTest {
 
         mockMvc.perform(get(ENDPOINT))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("deve retornar 200 com a situação atual da ordem ao chamar GET /{id}")
+    void deveConsultarOrdemPorId() throws Exception {
+        when(consultarUseCase.executar(3)).thenReturn(new OrdemServicoResumo(3, 10, StatusOrdemServico.EM_EXECUCAO,
+                LocalDateTime.of(2026, 8, 20, 9, 0), null));
+
+        mockMvc.perform(get(ENDPOINT + "/3"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(3))
+                .andExpect(jsonPath("$.status").value("EM_EXECUCAO"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("deve retornar 404 ao consultar ordem inexistente")
+    void deveRetornar404AoConsultarOrdemInexistente() throws Exception {
+        when(consultarUseCase.executar(99)).thenThrow(new OrdemServicoNaoEncontradaException(99));
+
+        mockMvc.perform(get(ENDPOINT + "/99"))
+                .andExpect(status().isNotFound());
     }
 
     @Test

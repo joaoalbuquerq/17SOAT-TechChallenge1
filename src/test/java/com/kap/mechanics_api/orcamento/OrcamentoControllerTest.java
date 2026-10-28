@@ -2,6 +2,7 @@ package com.kap.mechanics_api.orcamento;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
@@ -9,8 +10,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.kap.mechanics_api.core.orcamento.domain.Orcamento;
+import com.kap.mechanics_api.core.orcamento.usecase.OrcamentoGerado;
+import com.kap.mechanics_api.core.ordemservico.domain.OrdemServico;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -52,11 +58,20 @@ class OrcamentoControllerTest {
 
     @Test
     void deveGerarOrcamentoComOLoginDoUsuarioLogado() throws Exception {
+        Orcamento orcamento = mock(Orcamento.class);
+        when(orcamento.getId()).thenReturn(5);
+        OrdemServico ordemServico = mock(OrdemServico.class);
+        when(ordemServico.getId()).thenReturn(9);
+        when(gerarOrcamentoUseCase.executar(1, 2, List.of(10, 11), "maria"))
+                .thenReturn(new OrcamentoGerado(orcamento, ordemServico));
+
         mockMvc.perform(post(ENDPOINT + "/gerarOrcamento").principal(new TestingAuthenticationToken("maria", null))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"clienteId\":1,\"veiculoId\":2,\"servicosIds\":[10,11]}"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Orçamento gerado com sucesso."));
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "/api/ordem-servico/9"))
+                .andExpect(jsonPath("$.orcamentoId").value(5))
+                .andExpect(jsonPath("$.ordemServicoId").value(9));
 
         verify(gerarOrcamentoUseCase).executar(1, 2, List.of(10, 11), "maria");
     }

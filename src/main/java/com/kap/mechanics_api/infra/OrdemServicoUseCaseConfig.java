@@ -21,6 +21,7 @@ import com.kap.mechanics_api.core.ordemservico.usecase.GerarOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.IncluirItemNaOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.IniciarDiagnosticoPorOrcamentoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.ListarOrdensServicoPorClienteUseCase;
+import com.kap.mechanics_api.core.ordemservico.usecase.ConsultarOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.ListarOrdensServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.TransicionarStatusOrdemServicoUseCase;
 import com.kap.mechanics_api.core.servico.gateway.ComponentesDeServicoGateway;
@@ -79,6 +80,11 @@ public class OrdemServicoUseCaseConfig {
             OrdemServicoGateway ordemServicoGateway, ServicoGateway servicoGateway,
             ItemEstoqueGateway itemEstoqueGateway) {
         return new ConsultarItensDaOrdemServicoUseCase(ordemServicoGateway, servicoGateway, itemEstoqueGateway);
+    }
+
+    @Bean
+    ConsultarOrdemServicoUseCase consultarOrdemServicoUseCase(OrdemServicoGateway ordemServicoGateway) {
+        return new ConsultarOrdemServicoUseCase(ordemServicoGateway);
     }
 
     @Bean

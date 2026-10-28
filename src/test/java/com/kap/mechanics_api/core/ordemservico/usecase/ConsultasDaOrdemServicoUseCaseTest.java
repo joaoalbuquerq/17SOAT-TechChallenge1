@@ -51,6 +51,41 @@ class ConsultasDaOrdemServicoUseCaseTest {
         assertEquals(List.of(resumo), new ListarOrdensServicoUseCase(ordemServicoGateway).executar());
     }
 
+    @Test
+    void deveListarOrdensEmAndamentoPorPrioridadeDeStatusEMaisAntigasPrimeiro() {
+        OrdemServicoResumo recebida = new OrdemServicoResumo(1, 1, StatusOrdemServico.RECEBIDA, T0, null);
+        OrdemServicoResumo diagnostico = new OrdemServicoResumo(2, 2, StatusOrdemServico.EM_DIAGNOSTICO, T0, null);
+        OrdemServicoResumo aguardando = new OrdemServicoResumo(3, 3, StatusOrdemServico.AGUARDANDO_APROVACAO, T0, null);
+        OrdemServicoResumo execucaoNova = new OrdemServicoResumo(4, 4, StatusOrdemServico.EM_EXECUCAO, T0.plusDays(2), null);
+        OrdemServicoResumo execucaoAntiga = new OrdemServicoResumo(5, 5, StatusOrdemServico.EM_EXECUCAO, T0.plusDays(1), null);
+        OrdemServicoResumo finalizada = new OrdemServicoResumo(6, 6, StatusOrdemServico.FINALIZADA, T0, T0.plusDays(3));
+        OrdemServicoResumo entregue = new OrdemServicoResumo(7, 7, StatusOrdemServico.ENTREGUE, T0, T0.plusDays(4));
+        when(ordemServicoGateway.listarResumos()).thenReturn(List.of(
+                recebida, finalizada, execucaoNova, diagnostico, entregue, aguardando, execucaoAntiga));
+
+        assertEquals(List.of(execucaoAntiga, execucaoNova, aguardando, diagnostico, recebida),
+                new ListarOrdensServicoUseCase(ordemServicoGateway).executar());
+    }
+
+    @Test
+    void deveConsultarASituacaoAtualDaOrdem() {
+        OrdemServico os = OrdemServico.abrir(5, 3, T0);
+        when(ordemServicoGateway.pesquisarPorId(9)).thenReturn(Optional.of(os));
+
+        OrdemServicoResumo resultado = new ConsultarOrdemServicoUseCase(ordemServicoGateway).executar(9);
+
+        assertEquals(StatusOrdemServico.AGUARDANDO_APROVACAO, resultado.status());
+        assertEquals(5, resultado.orcamentoId());
+    }
+
+    @Test
+    void deveFalharAoConsultarOrdemInexistente() {
+        when(ordemServicoGateway.pesquisarPorId(9)).thenReturn(Optional.empty());
+
+        assertThrows(OrdemServicoNaoEncontradaException.class,
+                () -> new ConsultarOrdemServicoUseCase(ordemServicoGateway).executar(9));
+    }
+
     private ListarOrdensServicoPorClienteUseCase listarPorCliente() {
         return new ListarOrdensServicoPorClienteUseCase(ordemServicoGateway, clienteGateway);
     }

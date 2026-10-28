@@ -48,4 +48,17 @@ public interface OrdemServicoControllerDoc {
             @RequestParam(required = false) Integer clienteId,
             @RequestParam(required = false) String cpfCnpj
     );
+
+    @Operation(summary = "Consultar a situação atual de uma ordem de serviço")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Ordem de serviço retornada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Ordem de serviço não encontrada")
+    })
+    ResponseEntity<ListagemOrdemServicoResponseDTO> consultar(@PathVariable Integer id);
+
+    @Operation(summary = "Listar as ordens de serviço em andamento",
+            description = "Ordena por Em Execução, Aguardando Aprovação, Diagnóstico e Recebida; dentro do mesmo "
+                    + "status, as mais antigas primeiro. Ordens finalizadas e entregues não aparecem.")
+    @ApiResponse(responseCode = "200", description = "Ordens de serviço retornadas com sucesso")
+    ResponseEntity<List<ListagemOrdemServicoResponseDTO>> listarTodas();
 }

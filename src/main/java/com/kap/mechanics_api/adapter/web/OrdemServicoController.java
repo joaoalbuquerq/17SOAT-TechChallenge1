@@ -6,6 +6,7 @@ import com.kap.mechanics_api.core.ordemservico.usecase.ConsultarItensDaOrdemServ
 import com.kap.mechanics_api.core.ordemservico.usecase.GerarOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.IncluirItemNaOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.ListarOrdensServicoPorClienteUseCase;
+import com.kap.mechanics_api.core.ordemservico.usecase.ConsultarOrdemServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.ListarOrdensServicoUseCase;
 import com.kap.mechanics_api.core.ordemservico.usecase.TransicionarStatusOrdemServicoUseCase;
 import com.kap.mechanics_api.adapter.web.doc.OrdemServicoControllerDoc;
@@ -39,6 +40,7 @@ public class OrdemServicoController implements OrdemServicoControllerDoc {
     private final TransicionarStatusOrdemServicoUseCase transicionarStatusUseCase;
     private final IncluirItemNaOrdemServicoUseCase incluirItemUseCase;
     private final ConsultarItensDaOrdemServicoUseCase consultarItensUseCase;
+    private final ConsultarOrdemServicoUseCase consultarUseCase;
     private final ListarOrdensServicoUseCase listarUseCase;
     private final ListarOrdensServicoPorClienteUseCase listarPorClienteUseCase;
     private final OrdemServicoWebMapper ordemServicoMapper;
@@ -47,6 +49,7 @@ public class OrdemServicoController implements OrdemServicoControllerDoc {
                                   TransicionarStatusOrdemServicoUseCase transicionarStatusUseCase,
                                   IncluirItemNaOrdemServicoUseCase incluirItemUseCase,
                                   ConsultarItensDaOrdemServicoUseCase consultarItensUseCase,
+                                  ConsultarOrdemServicoUseCase consultarUseCase,
                                   ListarOrdensServicoUseCase listarUseCase,
                                   ListarOrdensServicoPorClienteUseCase listarPorClienteUseCase,
                                   OrdemServicoWebMapper ordemServicoMapper) {
@@ -54,9 +57,17 @@ public class OrdemServicoController implements OrdemServicoControllerDoc {
         this.transicionarStatusUseCase = transicionarStatusUseCase;
         this.incluirItemUseCase = incluirItemUseCase;
         this.consultarItensUseCase = consultarItensUseCase;
+        this.consultarUseCase = consultarUseCase;
         this.listarUseCase = listarUseCase;
         this.listarPorClienteUseCase = listarPorClienteUseCase;
         this.ordemServicoMapper = ordemServicoMapper;
+    }
+
+    @GetMapping("/{id}")
+    @Transactional(readOnly = true)
+    @Override
+    public ResponseEntity<ListagemOrdemServicoResponseDTO> consultar(@PathVariable Integer id) {
+        return ResponseEntity.ok(ordemServicoMapper.paraDto(consultarUseCase.executar(id)));
     }
 
     @PostMapping("/{id}/itens")
@@ -104,6 +115,7 @@ public class OrdemServicoController implements OrdemServicoControllerDoc {
 
     @GetMapping("/listar")
     @Transactional(readOnly = true)
+    @Override
     public ResponseEntity<List<ListagemOrdemServicoResponseDTO>> listarTodas() {
         return ResponseEntity.ok(ordemServicoMapper.paraDtoLista(listarUseCase.executar()));
     }
